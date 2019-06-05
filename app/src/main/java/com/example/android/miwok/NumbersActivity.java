@@ -1,7 +1,10 @@
 package com.example.android.miwok;
 
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 public class NumbersActivity extends AppCompatActivity {
 
