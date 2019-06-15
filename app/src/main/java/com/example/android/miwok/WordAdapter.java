@@ -1,7 +1,6 @@
 package com.example.android.miwok;
 
 import android.app.Activity;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WordAdapter extends ArrayAdapter<Word> {
@@ -58,7 +56,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
         // Get the version name from the current Word object and
         // set this text on the name TextView
-        defaultTextView.setText(currentWord.getDefaltTranslation());
+        defaultTextView.setText(currentWord.getDefaultTranslation());
 
         // Find the TextView in the list_item.xml layout with the ID version_number
         TextView miwokTextView = (TextView) listItemView.findViewById(R.id.miwok_text_view);
@@ -68,11 +66,16 @@ public class WordAdapter extends ArrayAdapter<Word> {
         miwokTextView.setText(currentWord.getMiwokTranslation());
 
         // Find the ImageView in the list_item.xml layout with the ID list_item_icon
-        // ImageView iconView = (ImageView) listItemView.findViewById(R.id.list_item_icon);
+        ImageView itemImageView = (ImageView) listItemView.findViewById(R.id.item_image_view);
 
         // Get the image resource ID from the current Word object and
-        // set the image to iconView
-        // iconView.setImageResource(currentWord.getImageResourceId());
+        if (currentWord.hasImage()) {
+            // set the image to itemImageView
+            itemImageView.setImageResource(currentWord.getImageResourceId());
+        } else {
+            // hide the itemImageView (set visibility to GONE)
+            itemImageView.setVisibility(View.GONE);
+        }
 
         // Return the whole list item layout (containing 2 TextViews and an ImageView)
         // so that it can be shown in the ListView
