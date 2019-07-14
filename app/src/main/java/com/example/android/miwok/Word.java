@@ -11,6 +11,10 @@ public class Word {
     // Image resource ID for the word
     private int mImageResourceId;
 
+    // Audio resource ID for the word
+    private int mAudioResourceId;
+
+    //
     private static final int NO_IMAGE_PROVIDED = -1;
 
     /**
@@ -18,9 +22,10 @@ public class Word {
      *
      * @param defaultTranslation is the word in a language that the user is already familiar with
      * @param miwokTranslation is the word in the Miwok language
+     * @param audioResourceId is the raw resource ID for the audio associated with the word
      */
-    public Word(String defaultTranslation, String miwokTranslation) {
-        this(defaultTranslation, miwokTranslation, NO_IMAGE_PROVIDED);
+    public Word(String defaultTranslation, String miwokTranslation, int audioResourceId) {
+        this(defaultTranslation, miwokTranslation, NO_IMAGE_PROVIDED, audioResourceId);
     }
 
     /**
@@ -30,11 +35,13 @@ public class Word {
      * @param defaultTranslation is the word in a language that the user is already familiar with
      * @param miwokTranslation is the word in the Miwok language
      * @param imageResourceId is the drawable resource ID for the image associated with the word
+     * @param audioResourceId is the raw resource ID for the audio associated with the word
      */
-    public Word(String defaultTranslation, String miwokTranslation, int imageResourceId) {
+    public Word(String defaultTranslation, String miwokTranslation, int imageResourceId, int audioResourceId) {
         this.mDefaultTranslation = defaultTranslation;
         this.mMiwokTranslation = miwokTranslation;
         this.mImageResourceId = imageResourceId;
+        this.mAudioResourceId = audioResourceId;
     }
 
     /**
@@ -67,5 +74,26 @@ public class Word {
      */
     public boolean hasImage() {
         return mImageResourceId != NO_IMAGE_PROVIDED;
+    }
+
+    /**
+     * Get the audio resource ID of the word
+     * @return audio resource ID of the word
+     */
+    public int getAudioResourceId() {
+        return mAudioResourceId;
+    }
+
+    /**
+     * Returns the string representation of the {@link Word} object.
+     */
+    @Override
+    public String toString() {
+        return "Word{" +
+                "mDefaultTranslation='" + mDefaultTranslation + '\'' +
+                ", mMiwokTranslation='" + mMiwokTranslation + '\'' +
+                ", mImageResourceId=" + mImageResourceId +
+                ", mAudioResourceId=" + mAudioResourceId +
+                '}';
     }
 }
