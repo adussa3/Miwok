@@ -74,23 +74,23 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    public void Numbers(View view) {
-//        Intent intent = new Intent(this, NumbersActivity.class);
-//        startActivity(intent);
-//    }
-//
-//    public void openFamilyList(View view) {
-//        Intent intent = new Intent(this, FamilyActivity.class);
-//        startActivity(intent);
-//    }
-//
-//    public void openColorsList(View view) {
-//        Intent intent = new Intent(this, ColorsActivity.class);
-//        startActivity(intent);
-//    }
-//
-//    public void openPhrasesList(View view) {
-//        Intent intent = new Intent(this, PhrasesActivity.class);
-//        startActivity(intent);
-//    }
+    public void openNumbers(View view) {
+        Intent intent = new Intent(this, NumbersActivity.class);
+        startActivity(intent);
+    }
+
+    public void openFamilyList(View view) {
+        Intent intent = new Intent(this, FamilyActivity.class);
+        startActivity(intent);
+    }
+
+    public void openColorsList(View view) {
+        Intent intent = new Intent(this, ColorsActivity.class);
+        startActivity(intent);
+    }
+
+    public void openPhrasesList(View view) {
+        Intent intent = new Intent(this, PhrasesActivity.class);
+        startActivity(intent);
+    }
 }
