@@ -13,7 +13,20 @@ import java.util.List;
 
 public class FamilyActivity extends AppCompatActivity {
 
+    /** Handles playback of all the sound files */
     private MediaPlayer mMediaPlayer;
+
+    /**
+     * This listener gets triggered when the {@link MediaPlayer} has completed
+     * playing the audio file.
+     * */
+    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mediaPlayer) {
+            // Release the resource after the sound file has finished playing
+            releaseMediaPlayer();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,36 +67,38 @@ public class FamilyActivity extends AppCompatActivity {
         listView.setAdapter(wordAdapter);
 
         /**
-         *
+         * Set a click listener to play audio when the list item is clicked on
          */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Release the MediaPlayer resources before the MediaPlayer is initialized to play a different song
+                // Release the media player if it currently exists because we are about to
+                // play a different sound file.
                 releaseMediaPlayer();
 
                 // Get the {@link Word} object at the given position the user clicked on
-                Word word = (Word) parent.getItemAtPosition(position);
+                Word currentWord = (Word) parent.getItemAtPosition(position);
 
                 // Create and setup the {@link MediaPlayer} for the audio resource associated
                 // with the current word
-                mMediaPlayer = (MediaPlayer) MediaPlayer.create(FamilyActivity.this, word.getAudioResourceId());
+                mMediaPlayer = (MediaPlayer) MediaPlayer.create(FamilyActivity.this, currentWord.getAudioResourceId());
 
                 // Start the audio file
                 mMediaPlayer.start();
-            }
-        });
 
-        /**
-         *
-         */
-        mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                // Release the resource after the sound file has finished playing
-                releaseMediaPlayer();
+                // Set up a listener on the media player, so that we can stop and release the
+                // media player once the sound has finished playing.
+                mMediaPlayer.setOnCompletionListener(mCompletionListener);
             }
         });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // When the activity is stopped, release the media player resources because we won't
+        // be playing any more sounds.
+        releaseMediaPlayer();
     }
 
     /**
