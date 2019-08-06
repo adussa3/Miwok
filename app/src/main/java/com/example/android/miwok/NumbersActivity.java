@@ -92,24 +92,19 @@ public class NumbersActivity extends AppCompatActivity {
         // in the list.
         WordAdapter wordAdapter = new WordAdapter(this, words, R.color.category_numbers);
 
-        /**
-         * Create an {@link ListView} object in the view hierarchy of the {@link Activity}.
-         * There should be a {@link ListView} with the view ID called list, which is declared in
-         * word_list layout file
-         */
+         // Create an {@link ListView} object in the view hierarchy of the {@link Activity}.
+         // There should be a {@link ListView} with the view ID called list, which is declared in
+         // word_list layout file
         ListView listView = (ListView) findViewById(R.id.list);
 
-        /**
-         * Make the {@list ListView} use the {@link WordAdapter} we created above, so that the
-         * {@link ListView} will display list items for each word in the list of words.
-         * Do this by calling the setAdapter method on the {@link Listview} object and pass in
-         * 1 argument, which is the {@link WordAdapter} with the variable name wordAdapter.
-         */
+         // Make the {@list ListView} use the {@link WordAdapter} we created above, so that the
+         // {@link ListView} will display list items for each word in the list of words.
+         // Do this by calling the setAdapter method on the {@link Listview} object and pass in
+         // 1 argument, which is the {@link WordAdapter} with the variable name wordAdapter.
         listView.setAdapter(wordAdapter);
 
-        /**
-         * Set a click listener to play the audio when the list item is clicked on
-         */
+
+         // Set a click listener to play the audio when the list item is clicked on
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
