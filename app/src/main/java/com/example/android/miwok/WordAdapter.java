@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -49,7 +48,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
         View listItemView = convertView;
 
         if(listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
+            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.word_list_item, parent, false);
         }
 
         /**********************************************************************************/
@@ -68,21 +67,27 @@ public class WordAdapter extends ArrayAdapter<Word> {
         // Get the {@link Word} object located at this position in the list
         Word currentWord = getItem(position);
 
-        // Find the TextView in the list_item.xml layout with the ID version_name
+        /**********************************************************************************/
+
+        // Find the TextView in the word_list_item.xml layout with the ID version_name
         TextView defaultTextView = (TextView) listItemView.findViewById(R.id.default_text_view);
 
         // Get the version name from the current Word object and
         // set this text on the name TextView
         defaultTextView.setText(currentWord.getDefaultTranslation());
 
-        // Find the TextView in the list_item.xml layout with the ID version_number
+        /**********************************************************************************/
+
+        // Find the TextView in the word_list_item.xml layout with the ID version_number
         TextView miwokTextView = (TextView) listItemView.findViewById(R.id.miwok_text_view);
 
         // Get the version number from the current Word object and
         // set this text on the number TextView
         miwokTextView.setText(currentWord.getMiwokTranslation());
 
-        // Find the ImageView in the list_item.xml layout with the ID list_item_icon
+        /**********************************************************************************/
+
+        // Find the ImageView in the word_list_item_item.xml layout with the ID list_item_icon
         ImageView itemImageView = (ImageView) listItemView.findViewById(R.id.item_image_view);
 
         // Get the image resource ID from the current Word object and
@@ -93,6 +98,8 @@ public class WordAdapter extends ArrayAdapter<Word> {
             // hide the itemImageView (set visibility to GONE)
             itemImageView.setVisibility(View.GONE);
         }
+
+        /**********************************************************************************/
 
         // Return the whole list item layout (containing 2 TextViews and an ImageView)
         // so that it can be shown in the ListView
