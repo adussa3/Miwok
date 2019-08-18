@@ -15,12 +15,10 @@
  */
 package com.example.android.miwok;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,9 +33,21 @@ public class MainActivity extends AppCompatActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
 
         // Create an adapter that knows which fragment
-        CategoryAdapter adapter = new CategoryAdapter(getSupportFragmentManager());
+        CategoryAdapter adapter = new CategoryAdapter(this, getSupportFragmentManager());
 
-        // Set the adapter onto the view pager.
+        // Set the adapter onto the view pager
         viewPager.setAdapter(adapter);
+
+        /**********************************************************************************/
+
+        // Find the tab layout that shows the tabs
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+
+        // Connect the tab layout with the view pager. This will
+        //  1. Update the tab layout when the view pager is swiped
+        //  2. Update the view pager when a tab is selected
+        //  3. Set the tab layout's names with the view pager's adapter's
+        //     by calling onPageTitle()
+        tabLayout.setupWithViewPager(viewPager);
     }
 }
