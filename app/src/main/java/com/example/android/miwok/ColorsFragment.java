@@ -1,26 +1,35 @@
 package com.example.android.miwok;
 
-import android.app.Activity;
+
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PhrasesActivity extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class ColorsFragment extends Fragment {
 
     /** Handles playback of all the sound files */
     private MediaPlayer mMediaPlayer;
 
     /** Handles audio focus when playing a sound file */
     private AudioManager mAudioManager;
+
+    public ColorsFragment() {
+        // Required empty public constructor
+    }
 
     /**
      * This listener gets triggered whenever the audio focus changes
@@ -69,37 +78,35 @@ public class PhrasesActivity extends AppCompatActivity {
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.word_list);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.word_list, container, false);
 
         // Create and setup the {@link AudioManager} to request audio focus
-        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
 
         // Create a list of Word objects
         List<Word> words = new ArrayList<>();
-        words.add(new Word(getResources().getString(R.string.where_are_you_going), "minto wuksus", R.raw.phrase_where_are_you_going));
-        words.add(new Word(getResources().getString(R.string.what_is_your_name), "tinnә oyaase'nә", R.raw.phrase_what_is_your_name));
-        words.add(new Word(getResources().getString(R.string.my_name_is), "oyaaset...", R.raw.phrase_my_name_is));
-        words.add(new Word(getResources().getString(R.string.how_are_you_feeling), "michәksәs?", R.raw.phrase_how_are_you_feeling));
-        words.add(new Word(getResources().getString(R.string.im_feeling_good), "kuchi achit", R.raw.phrase_im_feeling_good));
-        words.add(new Word(getResources().getString(R.string.are_you_coming), "әәnәs'aa?", R.raw.phrase_are_you_coming));
-        words.add(new Word(getResources().getString(R.string.yes_im_coming), "hәә’ әәnәm", R.raw.phrase_yes_im_coming));
-        words.add(new Word(getResources().getString(R.string.im_coming), "әәnәm", R.raw.phrase_im_coming));
-        words.add(new Word(getResources().getString(R.string.lets_go), "yoowutis", R.raw.phrase_lets_go));
-        words.add(new Word(getResources().getString(R.string.come_here), "әnni'nem", R.raw.phrase_come_here));
+        words.add(new Word(getResources().getString(R.string.red), "weṭeṭṭi", R.drawable.color_red, R.raw.color_red));
+        words.add(new Word(getResources().getString(R.string.mustard_yellow), "chiwiiṭә", R.drawable.color_mustard_yellow, R.raw.color_mustard_yellow));
+        words.add(new Word(getResources().getString(R.string.dusty_yellow), "ṭopiisә", R.drawable.color_dusty_yellow, R.raw.color_dusty_yellow));
+        words.add(new Word(getResources().getString(R.string.green), "chokokki", R.drawable.color_green, R.raw.color_green));
+        words.add(new Word(getResources().getString(R.string.brown), "ṭakaakki", R.drawable.color_brown, R.raw.color_brown));
+        words.add(new Word(getResources().getString(R.string.gray), "ṭopoppi", R.drawable.color_gray, R.raw.color_gray));
+        words.add(new Word(getResources().getString(R.string.black), "kululli", R.drawable.color_black, R.raw.color_black));
+        words.add(new Word(getResources().getString(R.string.white), "kelelli", R.drawable.color_white, R.raw.color_white));
+
 
         // Create an {@link WordAdapter}, whose data source is a list of
         // {@link Word}s. The adapter knows how to create list item views for each item
         // in the list.
-        WordAdapter wordAdapter = new WordAdapter(this, words, R.color.category_phrases);
+        WordAdapter wordAdapter = new WordAdapter(getActivity(), words, R.color.category_colors);
 
         /**
          * Create an {@link ListView} object in the view hierarchy of the {@link Activity}.
          * There should be a {@link ListView} with the view ID called list, which is declared in
          * word_list layout file
          */
-        ListView listView = (ListView) findViewById(R.id.list);
+        ListView listView = (ListView) rootView.findViewById(R.id.list);
 
         /**
          * Make the {@list ListView} use the {@link WordAdapter} we created above, so that the
@@ -134,7 +141,7 @@ public class PhrasesActivity extends AppCompatActivity {
 
                     // Create and setup the {@link MediaPlayer} for the audio resource associated
                     // with the current word
-                    mMediaPlayer = (MediaPlayer) MediaPlayer.create(PhrasesActivity.this, currentWord.getAudioResourceId());
+                    mMediaPlayer = (MediaPlayer) MediaPlayer.create(getActivity(), currentWord.getAudioResourceId());
 
                     // Start the audio file
                     mMediaPlayer.start();
@@ -145,11 +152,16 @@ public class PhrasesActivity extends AppCompatActivity {
                 }
             }
         });
+
+        return rootView;
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
+
+        // When the activity is stopped, release the media player resources because we won't
+        // be playing anymore sounds.
         releaseMediaPlayer();
     }
 
