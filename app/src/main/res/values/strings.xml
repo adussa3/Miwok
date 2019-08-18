@@ -69,8 +69,4 @@
     <string name="younger_sister">younger sister</string>
     <string name="grandmother">grandmother</string>
     <string name="grandfather">grandfather</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 </resources>
